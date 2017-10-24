@@ -1,17 +1,18 @@
-function numberTransition(comp, initialPrice, finalPrice) {
-    var diff, del, slots=20, chPr, sign;
+function numberTransition(comp, final, initial) {
+    let diff, del, slots=20, ch, sign;
+    initial = initial || Math.abs(comp.innerHTML);
 
-    diff = finalPrice - initialPrice;
+    diff = final - initial;
     sign = diff < 0 ? -1 : 1;
     del = Math.abs(Math.abs(diff) < 20 ? 1 : diff/slots);
     del = sign * Math.ceil(del);
-    chPr = +initialPrice;
+    ch = +initial;
     
     comp.className += " highlight";
     setTimeout(function updatePrice() {
-        chPr += del;
-        slots = finalPrice -chPr == 0 ? 1 : slots;
-        valueChange(comp, chPr);
+        ch += del;
+        slots = final - ch === 0 ? 1 : slots;
+        valueChange();
         slots--;
         slots > 0 ? setTimeout(updatePrice, 30) : endTransition();
     }, 30);
@@ -21,9 +22,6 @@ function numberTransition(comp, initialPrice, finalPrice) {
     }
 
     function valueChange() {
-        var inr = comp.querySelector('.inr'), priceVal;
-        priceVal = slots === 1 ? finalPrice : chPr;
-        inr.setAttribute('data-price', priceVal);
-        inr.nextSibling.textContent = priceVal;
+        comp.innerHTML = slots === 1 ? final : ch;
     }
 }
