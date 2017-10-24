@@ -55,7 +55,3 @@ If not provided, then the plugin assumes the innerHTML of the element
 as the initial value. 
 
 
----
-
-
-######_That's all folks!_
